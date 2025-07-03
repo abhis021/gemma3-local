@@ -71,3 +71,23 @@
 .input-bar button:hover {
   background-color: #005fa3;
 }
+
+.text {
+  font-size: 14px;
+}
+
+.text h1, .text h2, .text h3 {
+  margin: 8px 0;
+}
+
+.text a {
+  color: #007acc;
+  text-decoration: underline;
+}
+
+.text code {
+  background: #eee;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+}

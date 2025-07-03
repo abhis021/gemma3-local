@@ -2,7 +2,7 @@
   <div class="messages">
     <div *ngFor="let msg of chatHistory" class="message" [ngClass]="msg.role">
       <span class="sender">{{ msg.role === 'user' ? 'You' : 'Bot' }}:</span>
-      <span class="text" [innerHTML]="msg.content"></span>
+      <markdown class="text" [data]="msg.content"></markdown>
     </div>
   </div>
 
