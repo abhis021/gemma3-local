@@ -22,7 +22,7 @@ async def chat(request: Request):
     user_message = body.get("message", "")
 
     payload = {
-        "model": "gemma3",
+        "model": "llama3.2",
         "messages": [{"role": "user", "content": user_message}],
         "stream": False
     }
