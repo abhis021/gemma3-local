@@ -48,19 +48,25 @@ export class ChatComponent implements OnInit {
   }
 
   fetchModelsAndCurrentModel() {
-    Promise.all([
-      this.http.get<any>('http://localhost:8000/models').toPromise(),
-      this.http.get<any>('http://localhost:8000/current-model').toPromise()
-    ])
-      .then(([modelsRes, currentModelRes]) => {
-        this.models = modelsRes.models;
-        this.selectedModel = currentModelRes.model;
+  Promise.all([
+    this.http.get<any>('http://localhost:8000/models').toPromise(),
+    this.http.get<any>('http://localhost:8000/current-model').toPromise()
+  ])
+  .then(([modelsRes, currentModelRes]) => {
+    this.models = modelsRes.models || [];
+    this.selectedModel = currentModelRes.model || this.models[0] || '';
 
-        if (this.selectedModel && !this.models.includes(this.selectedModel)) {
-          this.models.unshift(this.selectedModel);
-        }
-      });
-  }
+    if (this.selectedModel && !this.models.includes(this.selectedModel)) {
+      this.models.unshift(this.selectedModel);
+    }
+  })
+  .catch(err => {
+    console.error('Model fetch failed:', err);
+    this.models = ['llama3:latest']; // fallback
+    this.selectedModel = this.models[0];
+  });
+}
+
 
   onModelChange() {
     this.http.post('http://localhost:8000/set-model', {
