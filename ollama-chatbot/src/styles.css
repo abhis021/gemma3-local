@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+body.light {
+  background: #ffffff;
+}
+
+body.dark {
+  background: #1e1e1e;
+}

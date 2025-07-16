@@ -15,23 +15,45 @@
       </select>
     </div>
   </div>
-<div class="main-content">
-  <div class="chat-window" #chatWindow>
-    <div *ngFor="let msg of chatHistory" class="message" [ngClass]="msg.role">
-      <div class="bubble">
-        <div class="sender">{{ msg.role === 'user' ? 'You' : 'Bot' }}:</div>
-        <markdown class="text" [data]="msg.content"></markdown>
+
+  <div class="main-content-row">
+        <div class="chat-list">
+  <h3>Chats</h3>
+  <button (click)="startNewChat()">➕ New Chat</button>
+  <ul>
+    <li *ngFor="let chat of chatSessions" [class.active]="chat.id === currentChatId">
+      <div class="chat-item">
+        <span (click)="loadChat(chat.id)">{{ chat.title }}</span>
+
+        <div class="chat-actions">
+          <button (click)="renameChat(chat)">✏️</button>
+          <button (click)="deleteChat(chat.id)">🗑️</button>
+          <button (click)="shareChat(chat.id)">🔗</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+    <div class="main-content">
+      <div class="chat-window" #chatWindow>
+        <div *ngFor="let msg of chatHistory" class="message" [ngClass]="msg.role">
+          <div class="bubble">
+            <div class="sender">{{ msg.role === 'user' ? 'You' : 'Bot' }}:</div>
+            <markdown class="text" [data]="msg.content"></markdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input
+          [(ngModel)]="userMessage"
+          placeholder="Type a message..."
+          (keyup.enter)="sendMessage()"
+        />
+        <button (click)="sendMessage()">Send</button>
       </div>
     </div>
   </div>
-
-  <div class="input-bar">
-    <input
-      [(ngModel)]="userMessage"
-      placeholder="Type a message..."
-      (keyup.enter)="sendMessage()"
-    />
-    <button (click)="sendMessage()">Send</button>
-  </div>
-</div>
 </div>
