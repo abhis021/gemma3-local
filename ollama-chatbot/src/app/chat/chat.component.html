@@ -1,13 +1,37 @@
-<div class="chat-window">
-  <div class="messages">
+<div class="chat-container" [ngClass]="theme">
+  <div class="header">
+    <div class="model-selector">
+      <label for="model">Model:</label>
+      <select id="model" [(ngModel)]="selectedModel" (change)="onModelChange()">
+        <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+      </select>
+    </div>
+
+    <div class="theme-toggle">
+      <label for="theme">Theme:</label>
+      <select id="theme" [(ngModel)]="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+<div class="main-content">
+  <div class="chat-window" #chatWindow>
     <div *ngFor="let msg of chatHistory" class="message" [ngClass]="msg.role">
-      <span class="sender">{{ msg.role === 'user' ? 'You' : 'Bot' }}:</span>
-      <markdown class="text" [data]="msg.content"></markdown>
+      <div class="bubble">
+        <div class="sender">{{ msg.role === 'user' ? 'You' : 'Bot' }}:</div>
+        <markdown class="text" [data]="msg.content"></markdown>
+      </div>
     </div>
   </div>
 
   <div class="input-bar">
-    <input [(ngModel)]="userMessage" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
+    <input
+      [(ngModel)]="userMessage"
+      placeholder="Type a message..."
+      (keyup.enter)="sendMessage()"
+    />
     <button (click)="sendMessage()">Send</button>
   </div>
+</div>
 </div>
