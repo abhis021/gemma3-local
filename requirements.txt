@@ -5,6 +5,7 @@ pydantic
 pydantic-core
 typing-extensions
 starlette
+requests
 
 # Optional utilities
 aiofiles         # Async file I/O
